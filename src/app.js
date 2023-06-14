@@ -1,17 +1,38 @@
 /* eslint-disable */
 import "./style.css";
 
-const outputData = (data) => {
-  const output = document.querySelector("#output");
+const createExample = (id, func, title) => {
+  const section = `
+  <row class="mb-3">
+    <col>
+      <h2>${title}</h2>
+      <h3>Displayed Data:</h3>
+      <div id="${id}" class="alert alert-warning mt-4"></div>
+      <h3>JSONified Data:</h3>
+      <div id="${id}Json" class="alert alert-warning mt-4"></div>
+      <button id="${id}Button" class="btn btn-primary">
+        Run this code
+      </button>
+    </col>
+  </row>`;
+
+  const target = document.querySelector("#target");
+  target.innerHTML = target.innerHTML + section;
+  const button = document.querySelector(`#${id}Button`);
+  button.onclick = func;
+};
+
+const outputData = (id, data) => {
+  const output = document.querySelector(`#${id}`);
   output.innerHTML = data;
-  const outputJSON = document.querySelector("#outputJson");
+  const outputJSON = document.querySelector(`#${id}Json`);
   outputJSON.innerHTML = JSON.stringify(data);
-}
+};
 
 const getMiddleItem = (arr) => {
   let middleIndex = arr.length / 2;
   return arr[Math.floor(middleIndex)];
-}
+};
 
 const getRandomCat = () => {
   const colony = [
@@ -32,13 +53,13 @@ const getRandomCat = () => {
       age: 6,
       color: "brown and absurdly fluffy",
       isNapping: false,
-    }
-  ]
+    },
+  ];
 
   return colony[Math.floor(Math.random() * colony.length)];
-}
+};
 
-window.onload = function() {
+window.onload = function () {
   let someVar = "some value, or whatnot.";
   const someConst = "some unchangable value.";
 
@@ -48,19 +69,39 @@ window.onload = function() {
 
   // Numbers
   let someInteger = 11235813;
-  let someFloat = 1.0;
+  let someFloat = Math.PI;
+
+  createExample(
+    "number",
+    () => {
+      outputData("number", someInteger);
+    },
+    "Numbers"
+  );
 
   // Strings
-  let someString = 'Strings are text, and behave like text.';
-  let someOtherString = "Normal strings can't have their quote in the string without being escaped.";
+  let someString = "Strings are text, and behave like text.";
+  let someOtherString =
+    "Normal strings can't have their quote in the string without being escaped.";
   let someStringLiteral = `This string is cool.<br />
   It can have break returns in it, and you can also<br />
-  interpolate values into it like so: ${someInteger}`;
+  interpolate values into it like so: ${someFloat}`;
+
+  createExample(
+    "strings",
+    () => {
+      outputData("strings", someStringLiteral);
+    },
+    "Strings"
+  );
+
+  let someConcatenatedString =
+    "This " + "is " + "a " + "concatenated " + "string.";
 
   // Booleans
   let someBoolean = false;
-  let someTruthyValue = (1 === 1);
-  let someFalsyValue = (1 + 1 === 3);
+  let someTruthyValue = 1 === 1;
+  let someFalsyValue = 1 + 1 === 3;
 
   // Null-like values
   let someNull = null;
@@ -68,12 +109,12 @@ window.onload = function() {
 
   // Arrays
   let someArray = [
-    1,  // Index: 0
-    1,  // Index: 1
-    2,  // Index: 2
-    3,  // Index: 3
-    5,  // Index: 4
-    8,  // Index: 5
+    1, // Index: 0
+    1, // Index: 1
+    2, // Index: 2
+    3, // Index: 3
+    5, // Index: 4
+    8, // Index: 5
     13, // Index: 6
     21, // Index: 7
   ];
@@ -83,7 +124,7 @@ window.onload = function() {
     name: "Sombra",
     age: 1.25,
     color: "black",
-    isNapping: true,
+    isNapping: false,
   };
 
   let someOtherCat = {
@@ -112,7 +153,7 @@ window.onload = function() {
       age: 6,
       color: "brown and absurdly fluffy",
       isNapping: false,
-    }
+    },
   ];
 
   console.table(colonyOfCats);
