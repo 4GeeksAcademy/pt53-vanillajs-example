@@ -77,7 +77,6 @@ const makeElementOnPage = (
   tag_name = "div",
   content = "This is the content of the div.",
   classes = [],
-  id = null,
   onclick = null
 ) => {
   const new_elem = document.createElement(tag_name);
@@ -109,7 +108,7 @@ const createButton = () => {
       "btn",
       buttonColors[Math.floor(Math.random() * buttonColors.length)],
     ],
-    (onclick = () => createButton())
+    () => createButton()
   );
 };
 
@@ -117,7 +116,7 @@ window.onload = function () {
   let someVar = "some value, or whatnot.";
   const someConst = "some unchangable value.";
 
-  const wat = createButton();
+  createButton();
 
   /*
     8 Types of data:
