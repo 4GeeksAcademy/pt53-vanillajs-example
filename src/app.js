@@ -73,9 +73,51 @@ const getRandomCat = () => {
   return colony[Math.floor(Math.random() * colony.length)];
 };
 
+const makeElementOnPage = (
+  tag_name = "div",
+  content = "This is the content of the div.",
+  classes = [],
+  id = null,
+  onclick = null
+) => {
+  const new_elem = document.createElement(tag_name);
+  new_elem.innerHTML = content;
+  new_elem.classList.add(...classes);
+  new_elem.addEventListener("click", onclick);
+
+  const body = document.querySelector("body");
+  body.appendChild(new_elem);
+};
+
+const createButton = () => {
+  const buttonColors = [
+    "btn-primary",
+    "btn-secondary",
+    "btn-success",
+    "btn-danger",
+    "btn-warning",
+    "btn-info",
+    "btn-light",
+    "btn-dark",
+  ];
+
+  makeElementOnPage(
+    "button",
+    "ADD MORE BUTTONS!",
+    [
+      "m-1",
+      "btn",
+      buttonColors[Math.floor(Math.random() * buttonColors.length)],
+    ],
+    (onclick = () => createButton())
+  );
+};
+
 window.onload = function () {
   let someVar = "some value, or whatnot.";
   const someConst = "some unchangable value.";
+
+  const wat = createButton();
 
   /*
     8 Types of data:
@@ -165,7 +207,7 @@ window.onload = function () {
     age: 1.25,
     color: "brindle",
     isNapping: false,
-    isVisiting: true,
+    isVisiting: false,
   };
 
   let colonyOfCats = [
